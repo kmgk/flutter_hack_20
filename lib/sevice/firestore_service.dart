@@ -152,6 +152,13 @@ class FirestoreService {
 
   /// KarmaPostを更新する
   Future<void> updateKarmaPost(KarmaPost karmaPost) async {
-    // TODO
+    try {
+      await _firestore
+          .document('$karmaPostsPath/${karmaPost.uid}')
+          .setData(karmaPost.toMap());
+    } catch (e) {
+      print('Error in FirestoreService.updateKarmaPost: $e');
+      rethrow;
+    }
   }
 }
