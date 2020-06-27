@@ -14,11 +14,11 @@ class EcoPost {
         assert(ecoCount != null),
         assert(createdAt != null);
 
-  factory EcoPost.forCreate(User user) {
+  factory EcoPost.forCreate(User user, String body) {
     return EcoPost(
       uid: '',
       user: user,
-      body: '',
+      body: body,
       ecoCount: 0,
       createdAt: DateTime.now(),
     );
