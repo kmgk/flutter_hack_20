@@ -114,7 +114,20 @@ class FirestoreService {
 
   /// KarmaPostを全て読み取り、List<KarmaPostJson>を返す
   Stream<List<KarmaPostJson>> readKarmaPosts() {
-    // TODO
+    try {
+      return _firestore
+          .collection(karmaPostsPath)
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .map((QuerySnapshot qs) => qs.documents.map((DocumentSnapshot ds) {
+                final Map<String, dynamic> karmaPostMap = ds.data;
+                karmaPostMap['uid'] = ds.documentID;
+                return KarmaPostJson.fromMap(karmaPostMap);
+              }).toList());
+    } catch (e) {
+      print('Error in FirestoreService.readEcoPosts $e');
+      rethrow;
+    }
   }
 
   /// KarmaPostのListを返す
