@@ -132,7 +132,22 @@ class FirestoreService {
 
   /// KarmaPostのListを返す
   Stream<List<KarmaPost>> getKarmaPosts(List<KarmaPostJson> kList) async* {
-    // TODO
+    try {
+      final List<KarmaPost> karmaPostList = <KarmaPost>[];
+      for (final KarmaPostJson karmaPostJson in kList) {
+        final DocumentSnapshot doc = await _firestore
+            .document('$usersPath/${karmaPostJson.userId}')
+            .get();
+        final Map<String, dynamic> karmaPostMap = karmaPostJson.toMap();
+        karmaPostMap['user'] = User.fromMap(doc.data);
+        karmaPostMap['uid'] = karmaPostJson.uid;
+        karmaPostList.add(KarmaPost.fromMap(karmaPostMap));
+      }
+      yield karmaPostList;
+    } catch (e) {
+      print('Error in FirestoreService.getKarmaPosts: $e');
+      rethrow;
+    }
   }
 
   /// KarmaPostを更新する
