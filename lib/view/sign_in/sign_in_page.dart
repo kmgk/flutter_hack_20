@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hack20/sevice/firebase_auth_service.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage();
@@ -12,7 +13,8 @@ class SignInPage extends StatelessWidget {
         child: RaisedButton(
           child: const Text('sign up'),
           onPressed: () async {
-            // TODO: anonymously sign-in
+            const String name = 'ここに名前が入る';
+            await FirebaseAuthService.instance.signInAnonymously(name);
           },
         ),
       ),
