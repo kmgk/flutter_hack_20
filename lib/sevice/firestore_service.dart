@@ -14,7 +14,12 @@ class FirestoreService {
 
   /// 新規ユーザをDBに保存する
   Future<void> createUser(User user) async {
-    _firestore.document('$usersPath/${user.uid}').setData(user.toMap());
+    try {
+      _firestore.document('$usersPath/${user.uid}').setData(user.toMap());
+    } catch (e) {
+      print('Error in FirestoreService.createUser: $e');
+      rethrow;
+    }
   }
 
   Stream<User> getCurrentUser(FirebaseUser user) {
@@ -31,7 +36,16 @@ class FirestoreService {
 
   /// 新しいEcoPostを作成する
   Future<void> createEcoPost(EcoPost ecoPost) async {
-    // TODO
+    try {
+      final Map<String, dynamic> ecoPostMap = ecoPost.toMap();
+      final String uid =
+          _firestore.collection(ecoPostsPath).document().documentID;
+      ecoPostMap['uid'] = uid;
+      await _firestore.document('$ecoPostsPath/$uid').setData(ecoPostMap);
+    } catch (e) {
+      print('Error in FirestoreService.createEcoPost: $e');
+      rethrow;
+    }
   }
 
   /// EcoPostを全て読み取り、List<EcoPostJson>を返す
