@@ -88,26 +88,77 @@ class FirestoreService {
 
   /// EcoPostを更新する
   Future<void> updateEcoPost(EcoPost ecoPost) async {
-    // TODO
+    try {
+      await _firestore
+          .document('$ecoPostsPath/${ecoPost.uid}')
+          .setData(ecoPost.toMap());
+    } catch (e) {
+      print('Error in FirestoreService.updateEcoPost: $e');
+      rethrow;
+    }
   }
 
   /// 新しいKarmaPostを作成する
   Future<void> createKarmaPost(KarmaPost karmaPost) async {
-    // TODO
+    try {
+      final Map<String, dynamic> karmaPostMap = karmaPost.toMap();
+      final String uid =
+          _firestore.collection(karmaPostsPath).document().documentID;
+      karmaPostMap['uid'] = uid;
+      await _firestore.document('$karmaPostsPath/$uid').setData(karmaPostMap);
+    } catch (e) {
+      print('Error in FirestoreService.createKarmaPost: $e');
+      rethrow;
+    }
   }
 
   /// KarmaPostを全て読み取り、List<KarmaPostJson>を返す
   Stream<List<KarmaPostJson>> readKarmaPosts() {
-    // TODO
+    try {
+      return _firestore
+          .collection(karmaPostsPath)
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .map((QuerySnapshot qs) => qs.documents.map((DocumentSnapshot ds) {
+                final Map<String, dynamic> karmaPostMap = ds.data;
+                karmaPostMap['uid'] = ds.documentID;
+                return KarmaPostJson.fromMap(karmaPostMap);
+              }).toList());
+    } catch (e) {
+      print('Error in FirestoreService.readEcoPosts $e');
+      rethrow;
+    }
   }
 
   /// KarmaPostのListを返す
   Stream<List<KarmaPost>> getKarmaPosts(List<KarmaPostJson> kList) async* {
-    // TODO
+    try {
+      final List<KarmaPost> karmaPostList = <KarmaPost>[];
+      for (final KarmaPostJson karmaPostJson in kList) {
+        final DocumentSnapshot doc = await _firestore
+            .document('$usersPath/${karmaPostJson.userId}')
+            .get();
+        final Map<String, dynamic> karmaPostMap = karmaPostJson.toMap();
+        karmaPostMap['user'] = User.fromMap(doc.data);
+        karmaPostMap['uid'] = karmaPostJson.uid;
+        karmaPostList.add(KarmaPost.fromMap(karmaPostMap));
+      }
+      yield karmaPostList;
+    } catch (e) {
+      print('Error in FirestoreService.getKarmaPosts: $e');
+      rethrow;
+    }
   }
 
   /// KarmaPostを更新する
   Future<void> updateKarmaPost(KarmaPost karmaPost) async {
-    // TODO
+    try {
+      await _firestore
+          .document('$karmaPostsPath/${karmaPost.uid}')
+          .setData(karmaPost.toMap());
+    } catch (e) {
+      print('Error in FirestoreService.updateKarmaPost: $e');
+      rethrow;
+    }
   }
 }
