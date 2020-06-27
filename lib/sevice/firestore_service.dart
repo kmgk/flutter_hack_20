@@ -100,7 +100,16 @@ class FirestoreService {
 
   /// 新しいKarmaPostを作成する
   Future<void> createKarmaPost(KarmaPost karmaPost) async {
-    // TODO
+    try {
+      final Map<String, dynamic> karmaPostMap = karmaPost.toMap();
+      final String uid =
+          _firestore.collection(karmaPostsPath).document().documentID;
+      karmaPostMap['uid'] = uid;
+      await _firestore.document('$karmaPostsPath/$uid').setData(karmaPostMap);
+    } catch (e) {
+      print('Error in FirestoreService.createKarmaPost: $e');
+      rethrow;
+    }
   }
 
   /// KarmaPostを全て読み取り、List<KarmaPostJson>を返す
