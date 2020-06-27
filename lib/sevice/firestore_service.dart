@@ -88,7 +88,14 @@ class FirestoreService {
 
   /// EcoPostを更新する
   Future<void> updateEcoPost(EcoPost ecoPost) async {
-    // TODO
+    try {
+      await _firestore
+          .document('$ecoPostsPath/${ecoPost.uid}')
+          .setData(ecoPost.toMap());
+    } catch (e) {
+      print('Error in FirestoreService.updateEcoPost: $e');
+      rethrow;
+    }
   }
 
   /// 新しいKarmaPostを作成する
