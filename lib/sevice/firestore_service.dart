@@ -15,7 +15,7 @@ class FirestoreService {
   /// 新規ユーザをDBに保存する
   Future<void> createUser(User user) async {
     try {
-      _firestore.document('$usersPath/${user.uid}').setData(user.toMap());
+      await _firestore.document('$usersPath/${user.uid}').setData(user.toMap());
     } catch (e) {
       print('Error in FirestoreService.createUser: $e');
       rethrow;
