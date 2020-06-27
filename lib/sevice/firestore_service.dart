@@ -50,12 +50,40 @@ class FirestoreService {
 
   /// EcoPostを全て読み取り、List<EcoPostJson>を返す
   Stream<List<EcoPostJson>> readEcoPosts() {
-    // TODO
+    try {
+      return _firestore
+          .collection(ecoPostsPath)
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .map((QuerySnapshot qs) => qs.documents.map((DocumentSnapshot ds) {
+                final Map<String, dynamic> ecoPostMap = ds.data;
+                ecoPostMap['uid'] = ds.documentID;
+                return EcoPostJson.fromMap(ecoPostMap);
+              }).toList());
+    } catch (e) {
+      print('Error in FirestoreService.readEcoPosts $e');
+      rethrow;
+    }
   }
 
   /// EcoPostのListを返す
   Stream<List<EcoPost>> getEcoPosts(List<EcoPostJson> eList) async* {
-    // TODO
+    try {
+      final List<EcoPost> ecoPostList = <EcoPost>[];
+      for (final EcoPostJson ecoPostJson in eList) {
+        final DocumentSnapshot doc =
+            await _firestore.document('$usersPath/${ecoPostJson.userId}').get();
+        final Map<String, dynamic> ecoPostMap = ecoPostJson.toMap();
+        ecoPostMap['user'] = User.fromMap(doc.data);
+        ecoPostMap['uid'] = ecoPostJson.uid;
+        ecoPostList.add(EcoPost.fromMap(ecoPostMap));
+      }
+
+      yield ecoPostList;
+    } catch (e) {
+      print('Error in FirestoreService.getEcoPosts: $e');
+      rethrow;
+    }
   }
 
   /// EcoPostを更新する
