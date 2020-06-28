@@ -13,12 +13,15 @@ class EcoTimelinePage extends StatelessWidget {
     final List<EcoPost> ecoPostList = Provider.of<List<EcoPost>>(context);
     final User user = Provider.of<User>(context);
 
+    if (ecoPostList == null || ecoPostList.isEmpty) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       appBar: commonAppBar('eco posts', color: Colors.green),
-      
       floatingActionButton: FloatingActionButton(
         heroTag: 'eco_timeline',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () => Navigator.of(context).push<dynamic>(
           MaterialPageRoute<dynamic>(
             fullscreenDialog: true,

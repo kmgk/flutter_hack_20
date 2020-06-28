@@ -26,8 +26,8 @@ Widget ecoPostCard(User user, EcoPost ecoPost) {
                   color: Colors.green,
                 ),
                 onPressed: () async {
-                  await FirestoreService.instance.incrementEcoCount(ecoPost);
                   await FirestoreService.instance.incrementUserEcoPoint(user);
+                  await FirestoreService.instance.incrementEcoCount(ecoPost);
                 },
               ),
               Text(
@@ -64,10 +64,10 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
                   color: Colors.red,
                 ),
                 onPressed: () async {
+                  await FirestoreService.instance.incrementUserKarmaPoint(user);
                   await FirestoreService.instance.incrementKarmaCount(
                     karmaPost,
                   );
-                  await FirestoreService.instance.incrementUserKarmaPoint(user);
                 },
               ),
               Text(
@@ -84,7 +84,7 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
 
 Widget _userListTile(User user) {
   final int karmaPoint = user.totalKarmaPoint - user.totalEcoPoint < 0
-      ? user.totalEcoPoint
+      ? user.totalKarmaPoint
       : user.totalKarmaPoint - user.totalEcoPoint;
   return ListTile(
     leading: const CircleAvatar(

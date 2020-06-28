@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hack20/common_widget/appbar.dart';
 import 'package:flutter_hack20/common_widget/post_card.dart';
 import 'package:flutter_hack20/model/karmaPost.dart';
-import 'package:flutter_hack20/model/user.dart';
 import 'package:provider/provider.dart';
 
 class KarmaTimelinePage extends StatelessWidget {
@@ -10,7 +9,10 @@ class KarmaTimelinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<KarmaPost> karmaPostList = Provider.of<List<KarmaPost>>(context);
-    final User user = Provider.of<User>(context);
+
+    if (karmaPostList == null || karmaPostList.isEmpty) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     return Scaffold(
       appBar: commonAppBar('karma posts', color: Colors.red),

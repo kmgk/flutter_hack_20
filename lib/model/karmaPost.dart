@@ -14,11 +14,11 @@ class KarmaPost {
         assert(karmaCount != null),
         assert(createdAt != null);
 
-  factory KarmaPost.forCreate(User user) {
+  factory KarmaPost.forCreate(User user, String body) {
     return KarmaPost(
       uid: '',
       user: user,
-      body: '',
+      body: body,
       karmaCount: 0,
       createdAt: DateTime.now(),
     );
