@@ -17,7 +17,7 @@ class KarmaTimelinePage extends StatelessWidget {
       body: ListView.builder(
         itemCount: karmaPostList.length,
         itemBuilder: (_, int index) {
-          return karmaPostCard(user, karmaPostList[index]);
+          return karmaPostCard(karmaPostList[index].user, karmaPostList[index]);
         },
       ),
     );

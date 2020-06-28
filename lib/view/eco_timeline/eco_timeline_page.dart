@@ -17,7 +17,7 @@ class EcoTimelinePage extends StatelessWidget {
       body: ListView.builder(
         itemCount: ecoPostList.length,
         itemBuilder: (_, int index) {
-          return ecoPostCard(user, ecoPostList[index]);
+          return ecoPostCard(ecoPostList[index].user, ecoPostList[index]);
         },
       ),
     );
