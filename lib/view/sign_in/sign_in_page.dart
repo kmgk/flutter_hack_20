@@ -44,7 +44,7 @@ class _SignInPageState extends State<SignInPage> {
                   width: MediaQuery.of(context).size.width * 0.5,
                 ),
                 Text(
-                  'Welcome Ecomy!',
+                  'Welcome to Ecomy!',
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
