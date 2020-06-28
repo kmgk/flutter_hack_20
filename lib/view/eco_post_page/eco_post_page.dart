@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_hack20/model/ecoPost.dart';
 import 'package:flutter_hack20/model/user.dart';
-import 'package:flutter_hack20/sevice/firebase_auth_service.dart';
 import 'package:flutter_hack20/sevice/firestore_service.dart';
 
 class EcoPostPage extends StatefulWidget {
@@ -22,13 +21,6 @@ class _EcoPostPageState extends State<EcoPostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.ac_unit),
-          onPressed: () {
-            FirebaseAuthService.instance.signOut();
-            Navigator.pop(context);
-          },
-        ),
         title: const Text('New Eco Post'),
       ),
       body: Form(
