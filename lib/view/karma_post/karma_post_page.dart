@@ -19,53 +19,52 @@ class _KarmaPostPageState extends State<KarmaPostPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text('New Karma Post'),
+    return Theme(
+      data: ThemeData(
+        primarySwatch: Colors.red,
       ),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          padding: const EdgeInsets.all(50.0),
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                maxLines: null,
-                enabled: true,
-                maxLength: 100,
-                maxLengthEnforced: false,
-                obscureText: false,
-                autovalidate: false,
-                cursorColor: Colors.red,
-                decoration: InputDecoration(
-                  hintText: 'karma post',
-                  labelText: 'post',
-                  labelStyle: const TextStyle(color: Colors.red),
-                  border: OutlineInputBorder(
-                    gapPadding: 0.0,
-                    borderRadius: BorderRadius.circular(1.5),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          title: const Text('New Karma Post'),
+        ),
+        body: Form(
+          key: _formKey,
+          child: Container(
+            padding: const EdgeInsets.all(50.0),
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  maxLines: null,
+                  enabled: true,
+                  maxLength: 100,
+                  maxLengthEnforced: false,
+                  obscureText: false,
+                  autovalidate: false,
+                  decoration: InputDecoration(
+                    hintText: 'karma post',
+                    labelText: 'post',
+                    border: OutlineInputBorder(
+                      gapPadding: 0.0,
+                      borderRadius: BorderRadius.circular(1.5),
+                    ),
                   ),
-                  fillColor: Colors.red,
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red, width: 2.0),
-                  ),
+                  validator: (String value) {
+                    return value.isEmpty ? 'karma post is required' : null;
+                  },
+                  onSaved: (String value) {
+                    body = value;
+                  },
                 ),
-                validator: (String value) {
-                  return value.isEmpty ? 'karma post is required' : null;
-                },
-                onSaved: (String value) {
-                  body = value;
-                },
-              ),
-              RaisedButton(
-                  color: Colors.red,
-                  onPressed: _submission,
-                  child: const Text(
-                    'post',
-                    style: TextStyle(color: Colors.white),
-                  ))
-            ],
+                RaisedButton(
+                    color: Colors.red,
+                    onPressed: _submission,
+                    child: const Text(
+                      'post',
+                      style: TextStyle(color: Colors.white),
+                    ))
+              ],
+            ),
           ),
         ),
       ),
@@ -78,6 +77,7 @@ class _KarmaPostPageState extends State<KarmaPostPage> {
       FirestoreService.instance.createKarmaPost(
         KarmaPost.forCreate(widget.user, body),
       );
+      FirestoreService.instance.incrementUserKarmaPoint(widget.user);
       Navigator.pop(context);
     }
   }
