@@ -40,19 +40,27 @@ class SignInPage extends StatelessWidget {
             //     hintText: 'your name',
             //   ),
             // ),
-            TextFormField(
-              decoration: InputDecoration(labelText: 'your name'),
-              keyboardAppearance: Brightness.light,
-              initialValue: _name,
-              validator: (value) => value.isNotEmpty ? null : 'you can`t save name',
-              onSaved: (value) => _name = value,
+            Padding(
+              padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'your name'),
+                keyboardAppearance: Brightness.light,
+                initialValue: _name,
+                validator: (value) => value.isNotEmpty ? null : 'you can`t save name',
+                onSaved: (value) => _name = value,
+              ),
             ),
             SizedBox(height: 80.0),
-            RaisedButton(
-              child: const Text('sign up'),
-              onPressed: () async {
-                await FirebaseAuthService.instance.signInAnonymously(_name);
-              },
+            Padding(
+              padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+              child: RaisedButton(
+                child: const Text('sign up'),
+                onPressed: () async {
+                  await FirebaseAuthService.instance.signInAnonymously(_name);
+                },
+                color: Colors.greenAccent,
+                textColor: Colors.white
+              ),
             ),
           ]),
     );
