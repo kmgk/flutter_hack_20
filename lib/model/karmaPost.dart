@@ -44,6 +44,21 @@ class KarmaPost {
     };
   }
 
+  KarmaPost copyWith({
+    String uid,
+    User user,
+    String body,
+    int karmaCount,
+  }) {
+    return KarmaPost(
+      uid: uid ?? this.uid,
+      user: user ?? this.user,
+      body: body ?? this.body,
+      karmaCount: karmaCount ?? this.karmaCount,
+      createdAt: createdAt,
+    );
+  }
+
   final String uid;
   final User user;
   final String body;

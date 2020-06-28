@@ -53,6 +53,25 @@ class User {
     };
   }
 
+  User copyWith({
+    String uid,
+    String name,
+    int ecoPoint,
+    int karmaPoint,
+    int totalEcoPoint,
+    int totalKarmaPoint,
+  }) {
+    return User(
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
+      ecoPoint: ecoPoint ?? this.ecoPoint,
+      karmaPoint: karmaPoint ?? this.karmaPoint,
+      totalEcoPoint: totalEcoPoint ?? this.totalEcoPoint,
+      totalKarmaPoint: totalKarmaPoint ?? this.totalKarmaPoint,
+      createdAt: createdAt,
+    );
+  }
+
   final String uid;
   final String name;
   final int ecoPoint;

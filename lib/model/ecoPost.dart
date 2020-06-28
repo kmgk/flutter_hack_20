@@ -44,6 +44,21 @@ class EcoPost {
     };
   }
 
+  EcoPost copyWith({
+    String uid,
+    User user,
+    String body,
+    int ecoCount,
+  }) {
+    return EcoPost(
+      uid: uid ?? this.uid,
+      user: user ?? this.user,
+      body: body ?? this.body,
+      ecoCount: ecoCount ?? this.ecoCount,
+      createdAt: createdAt,
+    );
+  }
+
   final String uid;
   final User user;
   final String body;

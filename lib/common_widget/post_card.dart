@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hack20/model/ecoPost.dart';
 import 'package:flutter_hack20/model/karmaPost.dart';
 import 'package:flutter_hack20/model/user.dart';
+import 'package:flutter_hack20/sevice/firestore_service.dart';
 
 Widget ecoPostCard(User user, EcoPost ecoPost) {
   return Padding(
@@ -24,7 +25,10 @@ Widget ecoPostCard(User user, EcoPost ecoPost) {
                   Icons.nature,
                   color: Colors.green,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await FirestoreService.instance.incrementEcoCount(ecoPost);
+                  await FirestoreService.instance.incrementUserEcoPoint(user);
+                },
               ),
               Text(
                 '${ecoPost.ecoCount}',
@@ -59,7 +63,12 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
                   Icons.whatshot,
                   color: Colors.red,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await FirestoreService.instance.incrementKarmaCount(
+                    karmaPost,
+                  );
+                  await FirestoreService.instance.incrementUserKarmaPoint(user);
+                },
               ),
               Text(
                 '${karmaPost.karmaCount}',
@@ -74,6 +83,9 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
 }
 
 Widget _userListTile(User user) {
+  final int karmaPoint = user.totalKarmaPoint - user.totalEcoPoint < 0
+      ? user.totalEcoPoint
+      : user.totalKarmaPoint - user.totalEcoPoint;
   return ListTile(
     leading: const CircleAvatar(
       child: Icon(
@@ -88,7 +100,7 @@ Widget _userListTile(User user) {
         style: const TextStyle(color: Colors.green),
         children: <TextSpan>[
           TextSpan(
-            text: '\u{1f525}${user.karmaPoint}',
+            text: '\u{1f525}$karmaPoint',
             style: const TextStyle(color: Colors.red),
           ),
         ],
