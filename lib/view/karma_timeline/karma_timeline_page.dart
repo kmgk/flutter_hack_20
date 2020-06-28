@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hack20/common_widget/appbar.dart';
+import 'package:flutter_hack20/common_widget/drawer.dart';
 import 'package:flutter_hack20/common_widget/post_card.dart';
 import 'package:flutter_hack20/model/karmaPost.dart';
 import 'package:flutter_hack20/model/user.dart';
@@ -18,6 +19,7 @@ class KarmaTimelinePage extends StatelessWidget {
     }
 
     return Scaffold(
+      drawer: drawer(context),
       appBar: commonAppBar('karma posts', color: Colors.red),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),

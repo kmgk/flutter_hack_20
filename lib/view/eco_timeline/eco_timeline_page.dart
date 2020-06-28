@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hack20/common_widget/appbar.dart';
+import 'package:flutter_hack20/common_widget/drawer.dart';
 import 'package:flutter_hack20/common_widget/post_card.dart';
 import 'package:flutter_hack20/model/ecoPost.dart';
 import 'package:flutter_hack20/model/user.dart';
@@ -18,6 +19,7 @@ class EcoTimelinePage extends StatelessWidget {
     }
 
     return Scaffold(
+      drawer: drawer(context),
       appBar: commonAppBar('eco posts', color: Colors.green),
       floatingActionButton: FloatingActionButton(
         heroTag: 'eco_timeline',

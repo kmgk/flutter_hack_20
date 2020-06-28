@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hack20/view/about/about_page.dart';
 import 'package:flutter_hack20/view/landing/landing_page.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: <String, Widget Function(BuildContext)>{
           '/': (_) => const LandingView(),
+          '/about': (_) => const AboutPage()
         },
       ),
     );
