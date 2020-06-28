@@ -21,5 +21,6 @@ dev_dependencies:
   # firebase
   cloud_firestore: ^0.13.7
   firebase_auth: ^0.16.1
+
 flutter:
   uses-material-design: true
