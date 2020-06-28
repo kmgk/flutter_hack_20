@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const SizedBox(height: 50.0),
-          CircleAvatar(
+          const CircleAvatar(
             //ここをクリックした時に更新するメソッドを作る。
             // backgroundImage: ,
             radius: 60.0,
@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
           Center(
             child: Text(
               'name: ${user.name}',
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
@@ -34,20 +34,22 @@ class ProfilePage extends StatelessWidget {
           Center(
             child: Text(
               'eco point: ${user.ecoPoint}',
-              style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+              style: const TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
           const SizedBox(height: 30.0),
           Center(
             child: Text(
               'karma point: ${user.karmaPoint}',
-              style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+              style: const TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
         ],
