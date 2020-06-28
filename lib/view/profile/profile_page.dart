@@ -3,6 +3,7 @@ import 'package:flutter_hack20/model/user.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage();
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<User>(context);
