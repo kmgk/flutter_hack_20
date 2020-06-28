@@ -39,7 +39,10 @@ class _SignInPageState extends State<SignInPage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Image.asset('assets/logo.png'),
+                Image.asset(
+                  'assets/logo.png',
+                  width: MediaQuery.of(context).size.width * 0.5,
+                ),
                 Text(
                   'Welcome Ecomy!',
                   style: Theme.of(context).textTheme.headline4,

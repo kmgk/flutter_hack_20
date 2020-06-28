@@ -24,15 +24,14 @@ class AboutPage extends StatelessWidget {
                 style: subtitle1Style,
               ),
               const SizedBox(height: 30),
-              Text('How to use?', style: headline2Style),
+              Text('How to use', style: headline2Style),
               const SizedBox(height: 15),
               Text(
                 'One is a post that shares eco-friendly activities(called EcoPost), and the other is the opposite: a post that shares non-eco-friendly activities(called KarmaPost).\n\n'
                 'It\'s easy to imagine sharing eco-friendly activities, but what does it mean to share non-eco-friendly activities?\n\n'
                 'The point of sharing non-eco-friendly activities is to raise awareness of eco-friendly behaviors next time.'
-                ' We\'ll call eco-friendly posts EcoPost and non-eco-friendly posts KarmaPost.\n\n'
-                'Posting an EcoPost earns you 1 EcoPoint. And Posting an KarmaPoint earns you 1 KarmaPoint as well.You can also earn points by liking your post.\n\n'
-                'In this way, you can visualize how eco-friendly or not you usually are.KarmaPoint can be cancelled out with an EcoPoint, so you can use Don\'t be shy to post KarmaPost!\n\n'
+                'Posting an EcoPost earns you 1 EcoPoint. And Posting an KarmaPoint earns you 1 KarmaPoint as well.You also earn one point for each time get a reaction to your post.\n\n'
+                'In this way, you can visualize how eco-friendly or not you usually are.KarmaPoint can be cancelled out with an EcoPoint, so Don\'t be shy to post KarmaPost!\n\n'
                 '\n\nHave a fun eco-life on Ecomy!',
                 style: subtitle1Style,
               ),
