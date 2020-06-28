@@ -9,9 +9,10 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<User>(context);
-    if (user != null) {
+    if (user == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
+
     return Scaffold(
       appBar: commonAppBar('profile', color: Colors.blue),
       drawer: drawer(context),
