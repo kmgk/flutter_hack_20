@@ -12,16 +12,19 @@ class FirestoreService {
   static const String ecoPostsPath = 'ecoPosts';
   static const String karmaPostsPath = 'karmaPosts';
 
-  /// 新規ユーザをDBに保存する
+  /// save a new user in the DB
   Future<void> createUser(User user) async {
     try {
-      await _firestore.document('$usersPath/${user.uid}').setData(user.toMap());
+      await _firestore
+          .document('$usersPath/${user.uid}')
+          .setData(user.toMap(), merge: true);
     } catch (e) {
       print('Error in FirestoreService.createUser: $e');
       rethrow;
     }
   }
 
+  /// Retrieve the currently logged in user and return as User model
   Stream<User> getCurrentUser(FirebaseUser user) {
     try {
       return _firestore
@@ -34,21 +37,67 @@ class FirestoreService {
     }
   }
 
-  /// 新しいEcoPostを作成する
+  /// Increment the ecoPoint and totalEcoPoint fields in User
+  Future<void> incrementUserEcoPoint(User user) async {
+    try {
+      await _firestore.document('$usersPath/${user.uid}').setData(
+        <String, dynamic>{
+          'ecoPoint': FieldValue.increment(1),
+          'totalEcoPoint': FieldValue.increment(1),
+        },
+        merge: true,
+      );
+    } catch (e) {
+      print('Error in FirestoreService.incrementUserEcoPoint: $e');
+      rethrow;
+    }
+  }
+
+  /// Increment the karmaPoint and totalKarmaPoint fields in User
+  Future<void> incrementUserKarmaPoint(User user) async {
+    try {
+      await _firestore.document('$usersPath/${user.uid}').setData(
+        <String, dynamic>{
+          'karmaPoint': FieldValue.increment(1),
+          'totalKarmaPoint': FieldValue.increment(1),
+        },
+        merge: true,
+      );
+    } catch (e) {
+      print('Error in FirestoreService.incrementUserKarmaPoint: $e');
+      rethrow;
+    }
+  }
+
+  /// Update the user.
+  Future<void> updateUser(User user) async {
+    try {
+      await _firestore
+          .document('$usersPath/${user.uid}')
+          .setData(user.toMap(), merge: true);
+    } catch (e) {
+      print('Error in FirestoreService.updateUser: $e');
+      rethrow;
+    }
+  }
+
+  /// Creat a New EcoPost
   Future<void> createEcoPost(EcoPost ecoPost) async {
     try {
       final Map<String, dynamic> ecoPostMap = ecoPost.toMap();
       final String uid =
           _firestore.collection(ecoPostsPath).document().documentID;
       ecoPostMap['uid'] = uid;
-      await _firestore.document('$ecoPostsPath/$uid').setData(ecoPostMap);
+      await _firestore
+          .document('$ecoPostsPath/$uid')
+          .setData(ecoPostMap, merge: true);
     } catch (e) {
       print('Error in FirestoreService.createEcoPost: $e');
       rethrow;
     }
   }
 
-  /// EcoPostを全て読み取り、List<EcoPostJson>を返す
+  /// Reads all EcoPosts and returns List<EcoPostJson>.
   Stream<List<EcoPostJson>> readEcoPosts() {
     try {
       return _firestore
@@ -86,12 +135,25 @@ class FirestoreService {
     }
   }
 
+  /// Increment the ecoCount field in EcoPost
+  Future<void> incrementEcoCount(EcoPost ecoPost) async {
+    try {
+      await _firestore.document('$ecoPostsPath/${ecoPost.uid}').setData(
+        <String, dynamic>{'ecoCount': FieldValue.increment(1)},
+        merge: true,
+      );
+    } catch (e) {
+      print('Error in FirestoreService.incrementEcoCount: $e');
+      rethrow;
+    }
+  }
+
   /// EcoPostを更新する
   Future<void> updateEcoPost(EcoPost ecoPost) async {
     try {
       await _firestore
           .document('$ecoPostsPath/${ecoPost.uid}')
-          .setData(ecoPost.toMap());
+          .setData(ecoPost.toMap(), merge: true);
     } catch (e) {
       print('Error in FirestoreService.updateEcoPost: $e');
       rethrow;
@@ -105,7 +167,9 @@ class FirestoreService {
       final String uid =
           _firestore.collection(karmaPostsPath).document().documentID;
       karmaPostMap['uid'] = uid;
-      await _firestore.document('$karmaPostsPath/$uid').setData(karmaPostMap);
+      await _firestore
+          .document('$karmaPostsPath/$uid')
+          .setData(karmaPostMap, merge: true);
     } catch (e) {
       print('Error in FirestoreService.createKarmaPost: $e');
       rethrow;
@@ -150,12 +214,25 @@ class FirestoreService {
     }
   }
 
+  /// Increment the karmaPoint field in EcoPost
+  Future<void> incrementKarmaCount(KarmaPost karmaPoint) async {
+    try {
+      await _firestore.document('$karmaPostsPath/${karmaPoint.uid}').setData(
+        <String, dynamic>{'karmaCount': FieldValue.increment(1)},
+        merge: true,
+      );
+    } catch (e) {
+      print('Error in FirestoreService.incrementKarmaCount: $e');
+      rethrow;
+    }
+  }
+
   /// KarmaPostを更新する
   Future<void> updateKarmaPost(KarmaPost karmaPost) async {
     try {
       await _firestore
           .document('$karmaPostsPath/${karmaPost.uid}')
-          .setData(karmaPost.toMap());
+          .setData(karmaPost.toMap(), merge: true);
     } catch (e) {
       print('Error in FirestoreService.updateKarmaPost: $e');
       rethrow;
