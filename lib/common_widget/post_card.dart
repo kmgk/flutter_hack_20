@@ -84,7 +84,7 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
 
 Widget _userListTile(User user) {
   final int karmaPoint = user.totalKarmaPoint - user.totalEcoPoint < 0
-      ? user.totalKarmaPoint
+      ? 0
       : user.totalKarmaPoint - user.totalEcoPoint;
   return ListTile(
     leading: const CircleAvatar(
@@ -93,18 +93,21 @@ Widget _userListTile(User user) {
         color: Colors.greenAccent,
       ),
     ),
-    title: Text(user.name),
-    trailing: RichText(
-      text: TextSpan(
-        text: '\u{1f331}${user.totalEcoPoint}  ',
-        style: const TextStyle(color: Colors.green),
-        children: <TextSpan>[
-          TextSpan(
-            text: '\u{1f525}$karmaPoint',
-            style: const TextStyle(color: Colors.red),
-          ),
-        ],
-      ),
+    title: Row(
+      children: <Widget>[
+        Text(user.name),
+        const SizedBox(width: 10),
+        const Icon(Icons.spa, color: Colors.green),
+        Text(
+          user.totalEcoPoint.toString(),
+          style: const TextStyle(color: Colors.green),
+        ),
+        const Icon(Icons.whatshot, color: Colors.red),
+        Text(
+          karmaPoint.toString(),
+          style: const TextStyle(color: Colors.red),
+        ),
+      ],
     ),
   );
 }
