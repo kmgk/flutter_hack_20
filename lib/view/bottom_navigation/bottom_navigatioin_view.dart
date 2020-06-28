@@ -24,18 +24,27 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit),
-            title: Text('h'),
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.nature),
+            title: Text('Eco'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit),
-            title: Text('h'),
+            activeIcon: Icon(
+              Icons.whatshot,
+              color: Colors.red,
+            ),
+            icon: Icon(Icons.whatshot),
+            title: _currentIndex == 1
+                ? const Text('Karma',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ))
+                : const Text('Karma'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit),
-            title: Text('h'),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Profile'),
           ),
         ],
         onTap: (int index) => setState(() => _currentIndex = index),
