@@ -4,27 +4,30 @@ class User {
   const User({
     @required this.uid,
     @required this.name,
+    @required this.deepColorCode,
+    @required this.lightColorCode,
     @required this.ecoPoint,
     @required this.karmaPoint,
-    @required this.totalEcoPoint,
-    @required this.totalKarmaPoint,
     @required this.createdAt,
   })  : assert(uid != null),
         assert(name != null),
+        assert(deepColorCode != null),
+        assert(lightColorCode != null),
         assert(ecoPoint != null),
         assert(karmaPoint != null),
-        assert(totalEcoPoint != null),
-        assert(totalKarmaPoint != null),
         assert(createdAt != null);
 
-  factory User.initialized(String uid, String name) {
+  factory User.initialized(
+    String uid,
+    String name,
+  ) {
     return User(
       uid: uid,
       name: name,
+      deepColorCode: '',
+      lightColorCode: '',
       ecoPoint: 0,
       karmaPoint: 0,
-      totalEcoPoint: 0,
-      totalKarmaPoint: 0,
       createdAt: DateTime.now(),
     );
   }
@@ -33,10 +36,10 @@ class User {
     return User(
       uid: map['uid'] as String,
       name: map['name'] as String,
+      deepColorCode: map['deepColorCode'] as String,
+      lightColorCode: map['lightColorCode'] as String,
       ecoPoint: map['ecoPoint'] as int,
       karmaPoint: map['karmaPoint'] as int,
-      totalEcoPoint: map['totalEcoPoint'] as int,
-      totalKarmaPoint: map['totalKarmaPoint'] as int,
       createdAt: map['createdAt'].toDate() as DateTime,
     );
   }
@@ -45,10 +48,10 @@ class User {
     return <String, dynamic>{
       'uid': uid,
       'name': name,
+      'deepColorCode': deepColorCode,
+      'lightColorCode': lightColorCode,
       'ecoPoint': ecoPoint,
       'karmaPoint': karmaPoint,
-      'totalEcoPoint': totalEcoPoint,
-      'totalKarmaPoint': totalKarmaPoint,
       'createdAt': createdAt,
     };
   }
@@ -56,27 +59,27 @@ class User {
   User copyWith({
     String uid,
     String name,
+    String deepColorCode,
+    String lightColorCode,
     int ecoPoint,
     int karmaPoint,
-    int totalEcoPoint,
-    int totalKarmaPoint,
   }) {
     return User(
       uid: uid ?? this.uid,
       name: name ?? this.name,
+      deepColorCode: deepColorCode ?? this.deepColorCode,
+      lightColorCode: lightColorCode ?? this.lightColorCode,
       ecoPoint: ecoPoint ?? this.ecoPoint,
       karmaPoint: karmaPoint ?? this.karmaPoint,
-      totalEcoPoint: totalEcoPoint ?? this.totalEcoPoint,
-      totalKarmaPoint: totalKarmaPoint ?? this.totalKarmaPoint,
       createdAt: createdAt,
     );
   }
 
   final String uid;
   final String name;
+  final String deepColorCode;
+  final String lightColorCode;
   final int ecoPoint;
   final int karmaPoint;
-  final int totalEcoPoint;
-  final int totalKarmaPoint;
   final DateTime createdAt;
 }

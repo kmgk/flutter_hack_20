@@ -13,9 +13,18 @@ class EcoTimelinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<EcoPost> ecoPostList = Provider.of<List<EcoPost>>(context);
     final User user = Provider.of<User>(context);
+    Widget body = ListView.builder(
+      itemCount: ecoPostList.length,
+      itemBuilder: (_, int index) {
+        return ecoPostCard(ecoPostList[index].user, ecoPostList[index]);
+      },
+    );
 
-    if (ecoPostList == null || ecoPostList.isEmpty) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    if (ecoPostList == null) {
+      body = const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    if (ecoPostList.isEmpty) {
+      body = const Center(child: Text('Let\'s Post!'));
     }
 
     return Scaffold(
@@ -31,12 +40,7 @@ class EcoTimelinePage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: ecoPostList.length,
-        itemBuilder: (_, int index) {
-          return ecoPostCard(ecoPostList[index].user, ecoPostList[index]);
-        },
-      ),
+      body: body,
     );
   }
 }

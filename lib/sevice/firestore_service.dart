@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_hack20/common_widget/profile_circle.dart';
 import 'package:flutter_hack20/model/ecoPost.dart';
 import 'package:flutter_hack20/model/karmaPost.dart';
 import 'package:flutter_hack20/model/user.dart';
@@ -15,9 +18,13 @@ class FirestoreService {
   /// Save a new user in the DB
   Future<void> createUser(User user) async {
     try {
+      final User u = user.copyWith(
+        deepColorCode: deepColorList[Random().nextInt(deepColorList.length)],
+        lightColorCode: lightColorList[Random().nextInt(deepColorList.length)],
+      );
       await _firestore
           .document('$usersPath/${user.uid}')
-          .setData(user.toMap(), merge: true);
+          .setData(u.toMap(), merge: true);
     } catch (e) {
       print('Error in FirestoreService.createUser: $e');
       rethrow;
@@ -37,13 +44,12 @@ class FirestoreService {
     }
   }
 
-  /// Increment the ecoPoint and totalEcoPoint fields in User
+  /// Increment the ecoPoint fields in User
   Future<void> incrementUserEcoPoint(User user) async {
     try {
       await _firestore.document('$usersPath/${user.uid}').setData(
         <String, dynamic>{
           'ecoPoint': FieldValue.increment(1),
-          'totalEcoPoint': FieldValue.increment(1),
         },
         merge: true,
       );
@@ -53,13 +59,12 @@ class FirestoreService {
     }
   }
 
-  /// Increment the karmaPoint and totalKarmaPoint fields in User
+  /// Increment the karmaPoint fields in User
   Future<void> incrementUserKarmaPoint(User user) async {
     try {
       await _firestore.document('$usersPath/${user.uid}').setData(
         <String, dynamic>{
           'karmaPoint': FieldValue.increment(1),
-          'totalKarmaPoint': FieldValue.increment(1),
         },
         merge: true,
       );
@@ -115,20 +120,24 @@ class FirestoreService {
     }
   }
 
+  Future<EcoPost> _ecoPostJsonToEcoPost(EcoPostJson ecoPostJson) async {
+    final DocumentSnapshot doc =
+        await _firestore.document('$usersPath/${ecoPostJson.userId}').get();
+    final Map<String, dynamic> ecoPostMap = ecoPostJson.toMap();
+    ecoPostMap['user'] = User.fromMap(doc.data);
+    ecoPostMap['uid'] = ecoPostJson.uid;
+    return EcoPost.fromMap(ecoPostMap);
+  }
+
   /// Takes a List of EcoPostJson and returns a List of EcoPost.
   Stream<List<EcoPost>> getEcoPosts(List<EcoPostJson> eList) async* {
     try {
-      final List<EcoPost> ecoPostList = <EcoPost>[];
+      final List<Future<EcoPost>> ecoPostListFuture = <Future<EcoPost>>[];
       for (final EcoPostJson ecoPostJson in eList) {
-        final DocumentSnapshot doc =
-            await _firestore.document('$usersPath/${ecoPostJson.userId}').get();
-        final Map<String, dynamic> ecoPostMap = ecoPostJson.toMap();
-        ecoPostMap['user'] = User.fromMap(doc.data);
-        ecoPostMap['uid'] = ecoPostJson.uid;
-        ecoPostList.add(EcoPost.fromMap(ecoPostMap));
+        ecoPostListFuture.add(_ecoPostJsonToEcoPost(ecoPostJson));
       }
 
-      yield ecoPostList;
+      yield await Future.wait(ecoPostListFuture);
     } catch (e) {
       print('Error in FirestoreService.getEcoPosts: $e');
       rethrow;
@@ -194,20 +203,24 @@ class FirestoreService {
     }
   }
 
+  Future<KarmaPost> _karmaPostJsonToKarmaPost(
+      KarmaPostJson karmaPostJson) async {
+    final DocumentSnapshot doc =
+        await _firestore.document('$usersPath/${karmaPostJson.userId}').get();
+    final Map<String, dynamic> karmaPostMap = karmaPostJson.toMap();
+    karmaPostMap['user'] = User.fromMap(doc.data);
+    karmaPostMap['uid'] = karmaPostJson.uid;
+    return KarmaPost.fromMap(karmaPostMap);
+  }
+
   /// Takes a List of KarmaPostJson and returns a List of KarmaPost.
   Stream<List<KarmaPost>> getKarmaPosts(List<KarmaPostJson> kList) async* {
     try {
-      final List<KarmaPost> karmaPostList = <KarmaPost>[];
+      final List<Future<KarmaPost>> karmaPostListFuture = <Future<KarmaPost>>[];
       for (final KarmaPostJson karmaPostJson in kList) {
-        final DocumentSnapshot doc = await _firestore
-            .document('$usersPath/${karmaPostJson.userId}')
-            .get();
-        final Map<String, dynamic> karmaPostMap = karmaPostJson.toMap();
-        karmaPostMap['user'] = User.fromMap(doc.data);
-        karmaPostMap['uid'] = karmaPostJson.uid;
-        karmaPostList.add(KarmaPost.fromMap(karmaPostMap));
+        karmaPostListFuture.add(_karmaPostJsonToKarmaPost(karmaPostJson));
       }
-      yield karmaPostList;
+      yield await Future.wait(karmaPostListFuture);
     } catch (e) {
       print('Error in FirestoreService.getKarmaPosts: $e');
       rethrow;

@@ -13,9 +13,18 @@ class KarmaTimelinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<KarmaPost> karmaPostList = Provider.of<List<KarmaPost>>(context);
     final User user = Provider.of<User>(context);
+    Widget body = ListView.builder(
+      itemCount: karmaPostList.length,
+      itemBuilder: (_, int index) {
+        return karmaPostCard(karmaPostList[index].user, karmaPostList[index]);
+      },
+    );
 
-    if (karmaPostList == null || karmaPostList.isEmpty) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    if (karmaPostList == null) {
+      body = const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    if (karmaPostList.isEmpty) {
+      body = const Center(child: Text('Let\'s Post!'));
     }
 
     return Scaffold(
@@ -31,12 +40,7 @@ class KarmaTimelinePage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: karmaPostList.length,
-        itemBuilder: (_, int index) {
-          return karmaPostCard(karmaPostList[index].user, karmaPostList[index]);
-        },
-      ),
+      body: body,
     );
   }
 }

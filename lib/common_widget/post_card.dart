@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hack20/common_widget/profile_circle.dart';
 import 'package:flutter_hack20/model/ecoPost.dart';
 import 'package:flutter_hack20/model/karmaPost.dart';
 import 'package:flutter_hack20/model/user.dart';
@@ -22,7 +23,7 @@ Widget ecoPostCard(User user, EcoPost ecoPost) {
             children: <Widget>[
               IconButton(
                 icon: const Icon(
-                  Icons.nature,
+                  Icons.thumb_up,
                   color: Colors.green,
                 ),
                 onPressed: () async {
@@ -33,7 +34,7 @@ Widget ecoPostCard(User user, EcoPost ecoPost) {
               Text(
                 '${ecoPost.ecoCount}',
                 style: const TextStyle(color: Colors.green),
-              )
+              ),
             ],
           )
         ],
@@ -60,7 +61,7 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
             children: <Widget>[
               IconButton(
                 icon: const Icon(
-                  Icons.whatshot,
+                  Icons.thumb_up,
                   color: Colors.red,
                 ),
                 onPressed: () async {
@@ -83,25 +84,20 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
 }
 
 Widget _userListTile(User user) {
-  final int karmaPoint = user.totalKarmaPoint - user.totalEcoPoint < 0
-      ? 0
-      : user.totalKarmaPoint - user.totalEcoPoint;
+  final int karmaPoint =
+      user.karmaPoint - user.ecoPoint < 0 ? 0 : user.karmaPoint - user.ecoPoint;
   return ListTile(
-    leading: const CircleAvatar(
-      child: Icon(
-        Icons.spa,
-        color: Colors.greenAccent,
-      ),
-    ),
+    leading: profileCircle(user, 20),
     title: Row(
       children: <Widget>[
         Text(user.name),
         const SizedBox(width: 10),
-        const Icon(Icons.spa, color: Colors.green),
+        const Icon(Icons.nature, color: Colors.green),
         Text(
-          user.totalEcoPoint.toString(),
+          user.ecoPoint.toString(),
           style: const TextStyle(color: Colors.green),
         ),
+        const SizedBox(width: 10),
         const Icon(Icons.whatshot, color: Colors.red),
         Text(
           karmaPoint.toString(),
