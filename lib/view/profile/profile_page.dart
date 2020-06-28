@@ -18,8 +18,13 @@ class ProfilePage extends StatelessWidget {
           const CircleAvatar(
             //ここをクリックした時に更新するメソッドを作る。
             // backgroundImage: ,
+            child: Icon(
+              Icons.spa,
+              color: Colors.greenAccent,
+              size: 60.0,
+            ),
             radius: 60.0,
-            backgroundColor: Colors.greenAccent,
+            // backgroundColor: Colors.greenAccent,
           ),
           const SizedBox(height: 30.0),
           Center(
