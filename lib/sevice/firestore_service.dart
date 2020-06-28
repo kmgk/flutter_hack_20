@@ -12,7 +12,7 @@ class FirestoreService {
   static const String ecoPostsPath = 'ecoPosts';
   static const String karmaPostsPath = 'karmaPosts';
 
-  /// save a new user in the DB
+  /// Save a new user in the DB
   Future<void> createUser(User user) async {
     try {
       await _firestore
@@ -115,7 +115,7 @@ class FirestoreService {
     }
   }
 
-  /// EcoPostのListを返す
+  /// Takes a List of EcoPostJson and returns a List of EcoPost.
   Stream<List<EcoPost>> getEcoPosts(List<EcoPostJson> eList) async* {
     try {
       final List<EcoPost> ecoPostList = <EcoPost>[];
@@ -148,7 +148,7 @@ class FirestoreService {
     }
   }
 
-  /// EcoPostを更新する
+  /// Update EcoPost
   Future<void> updateEcoPost(EcoPost ecoPost) async {
     try {
       await _firestore
@@ -160,7 +160,7 @@ class FirestoreService {
     }
   }
 
-  /// 新しいKarmaPostを作成する
+  /// Create new KarmaPost
   Future<void> createKarmaPost(KarmaPost karmaPost) async {
     try {
       final Map<String, dynamic> karmaPostMap = karmaPost.toMap();
@@ -176,7 +176,7 @@ class FirestoreService {
     }
   }
 
-  /// KarmaPostを全て読み取り、List<KarmaPostJson>を返す
+  /// Reads all KarmaPosts and returns List<KarmaPostJson>.
   Stream<List<KarmaPostJson>> readKarmaPosts() {
     try {
       return _firestore
@@ -194,7 +194,7 @@ class FirestoreService {
     }
   }
 
-  /// KarmaPostのListを返す
+  /// Takes a List of KarmaPostJson and returns a List of KarmaPost.
   Stream<List<KarmaPost>> getKarmaPosts(List<KarmaPostJson> kList) async* {
     try {
       final List<KarmaPost> karmaPostList = <KarmaPost>[];
@@ -214,7 +214,7 @@ class FirestoreService {
     }
   }
 
-  /// Increment the karmaPoint field in EcoPost
+  /// Increment the karmaPoint field in KarmaPost
   Future<void> incrementKarmaCount(KarmaPost karmaPoint) async {
     try {
       await _firestore.document('$karmaPostsPath/${karmaPoint.uid}').setData(
@@ -227,7 +227,7 @@ class FirestoreService {
     }
   }
 
-  /// KarmaPostを更新する
+  /// Update KarmaPost
   Future<void> updateKarmaPost(KarmaPost karmaPost) async {
     try {
       await _firestore
