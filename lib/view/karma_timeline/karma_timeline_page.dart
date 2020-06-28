@@ -20,7 +20,7 @@ class KarmaTimelinePage extends StatelessWidget {
     return Scaffold(
       appBar: commonAppBar('karma posts', color: Colors.red),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         backgroundColor: Colors.red,
         onPressed: () => Navigator.of(context).push<dynamic>(
           MaterialPageRoute<dynamic>(
