@@ -1,21 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hack20/sevice/firebase_auth_service.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage();
   @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final TextEditingController _controller = TextEditingController();
+  String _name = '';
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {});
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('sign up'),
-      ),
-      body: Center(
-        child: RaisedButton(
-          child: const Text('sign up'),
-          onPressed: () async {
-            const String name = 'ここに名前が入る';
-            await FirebaseAuthService.instance.signInAnonymously(name);
-          },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Welcome Ecomy!',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            TextFormField(
+              controller: _controller,
+              onChanged: (String t) => setState(() => _name = t),
+              validator: (String t) => 'aaa',
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter your name',
+                labelText: 'name',
+              ),
+            ),
+            RaisedButton(
+              child: const Text(
+                'sign up',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.green,
+              onPressed: _name == null || _name == ''
+                  ? null
+                  : () async {
+                      setState(() => _isLoading = true);
+                      await FirebaseAuthService.instance
+                          .signInAnonymously(_name);
+                    },
+            ),
+          ],
         ),
       ),
     );
