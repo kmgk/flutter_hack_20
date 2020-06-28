@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hack20/sevice/firebase_auth_service.dart';
 
-class SignInPage extends StatelessWidget {
-  // const SignInPage();
-  String _name;
+class SignInPage extends StatefulWidget {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  String _name = 'Enter your name';
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +15,7 @@ class SignInPage extends StatelessWidget {
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(height: 100.0),
+            const SizedBox(height: 100.0),
             Center(
               child: Text(
                 'ecomy',
@@ -22,7 +26,7 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 40.0),
+            const SizedBox(height: 40.0),
             Center(
               child: Text(
                 'What is name ?',
@@ -33,7 +37,7 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 57.0),
+            const SizedBox(height: 57.0),
             // TextField(
             //   decoration: InputDecoration(
             //     border: const OutlineInputBorder(),
@@ -43,24 +47,28 @@ class SignInPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 50.0, right: 50.0),
               child: TextFormField(
-                decoration: InputDecoration(labelText: 'your name'),
-                keyboardAppearance: Brightness.light,
-                initialValue: _name,
-                validator: (value) => value.isNotEmpty ? null : 'you can`t save name',
-                onSaved: (value) => _name = value,
-              ),
+                  decoration:
+                      const InputDecoration(labelText: 'Enter your name'),
+                  keyboardAppearance: Brightness.light,
+                  initialValue: _name,
+                  validator: (String value) =>
+                      value.isNotEmpty ? null : 'you can`t save name',
+                  onSaved: (String value) {
+                    _name = value;
+                    print(value);
+                  }),
             ),
-            SizedBox(height: 80.0),
+            const SizedBox(height: 80.0),
             Padding(
               padding: const EdgeInsets.only(left: 50.0, right: 50.0),
               child: RaisedButton(
-                child: const Text('sign up'),
-                onPressed: () async {
-                  await FirebaseAuthService.instance.signInAnonymously(_name);
-                },
-                color: Colors.greenAccent,
-                textColor: Colors.white
-              ),
+                  child: const Text('sign up'),
+                  onPressed: () async {
+                    print(_name);
+                    await FirebaseAuthService.instance.signInAnonymously(_name);
+                  },
+                  color: Colors.greenAccent,
+                  textColor: Colors.white),
             ),
           ]),
     );
