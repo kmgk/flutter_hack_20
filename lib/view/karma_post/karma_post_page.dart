@@ -78,6 +78,7 @@ class _KarmaPostPageState extends State<KarmaPostPage> {
       FirestoreService.instance.createKarmaPost(
         KarmaPost.forCreate(widget.user, body),
       );
+      FirestoreService.instance.incrementUserKarmaPoint(widget.user);
       Navigator.pop(context);
     }
   }

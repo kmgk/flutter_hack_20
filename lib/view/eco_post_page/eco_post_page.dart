@@ -69,6 +69,7 @@ class _EcoPostPageState extends State<EcoPostPage> {
       FirestoreService.instance.createEcoPost(
         EcoPost.forCreate(widget.user, body),
       );
+      FirestoreService.instance.incrementUserEcoPoint(widget.user);
       Navigator.pop(context);
     }
   }
