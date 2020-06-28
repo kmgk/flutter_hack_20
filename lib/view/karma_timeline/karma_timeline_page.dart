@@ -14,6 +14,11 @@ class KarmaTimelinePage extends StatelessWidget {
 
     return Scaffold(
       appBar: commonAppBar('karma posts', color: Colors.red),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: Colors.red,
+        onPressed: () => print('test'),
+      ),
       body: ListView.builder(
         itemCount: karmaPostList.length,
         itemBuilder: (_, int index) {
