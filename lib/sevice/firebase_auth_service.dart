@@ -7,10 +7,15 @@ class FirebaseAuthService {
   static final FirebaseAuthService instance = FirebaseAuthService();
 
   Future<void> signInAnonymously(String name) async {
-    final AuthResult result = await _firebaseAuth.signInAnonymously();
-    await FirestoreService.instance.createUser(
-      User.initialized(result.user.uid, name),
-    );
+    try {
+      final AuthResult result = await _firebaseAuth.signInAnonymously();
+      await FirestoreService.instance.createUser(
+        User.initialized(result.user.uid, name),
+      );
+    } catch (e) {
+      print('Error in FirebaseAuthService.signinAnonymously');
+      rethrow;
+    }
   }
 
   Future<void> signOut() async {
