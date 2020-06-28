@@ -30,15 +30,21 @@ class _SignInPageState extends State<SignInPage> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     return Scaffold(
+      backgroundColor: Colors.lightGreen[100],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'Welcome Ecomy!',
-              style: Theme.of(context).textTheme.headline4,
+            Column(
+              children: <Widget>[
+                Image.asset('assets/logo.png'),
+                Text(
+                  'Welcome Ecomy!',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ],
             ),
             TextFormField(
               controller: _controller,

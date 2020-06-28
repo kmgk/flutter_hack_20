@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hack20/common_widget/appbar.dart';
+import 'package:flutter_hack20/common_widget/drawer.dart';
 import 'package:flutter_hack20/model/user.dart';
 import 'package:provider/provider.dart';
 
@@ -7,10 +9,12 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<User>(context);
+    if (user != null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('profile'),
-      ),
+      appBar: commonAppBar('profile', color: Colors.blue),
+      drawer: drawer(context),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[

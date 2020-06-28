@@ -30,16 +30,18 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
             title: Text('Eco'),
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(
+            activeIcon: const Icon(
               Icons.whatshot,
               color: Colors.red,
             ),
-            icon: Icon(Icons.whatshot),
+            icon: const Icon(Icons.whatshot),
             title: _currentIndex == 1
-                ? const Text('Karma',
+                ? const Text(
+                    'Karma',
                     style: TextStyle(
                       color: Colors.red,
-                    ))
+                    ),
+                  )
                 : const Text('Karma'),
           ),
           const BottomNavigationBarItem(
