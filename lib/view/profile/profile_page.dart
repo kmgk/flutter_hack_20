@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hack20/model/user.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_hack20/view/update_profile/update_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage();
@@ -29,6 +30,7 @@ class ProfilePage extends StatelessWidget {
           const SizedBox(height: 30.0),
           Center(
             child: Text(
+              // 'name',
               'name: ${user.name}',
               style: const TextStyle(
                   fontSize: 30.0,
@@ -56,6 +58,25 @@ class ProfilePage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
+            ),
+          ),
+          const SizedBox(height: 100.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 80.0, right: 80.0),
+            child: RaisedButton(
+              child: const Text(
+                'update',
+                style: TextStyle(
+                  fontSize: 42.0,
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.greenAccent,
+              shape: const StadiumBorder(),
+              onPressed: () => Navigator.of(context).push<dynamic>(
+                  MaterialPageRoute<dynamic>(
+                      builder: (BuildContext context) =>
+                          UpdateProfilePage(user: user))),
             ),
           ),
         ],
