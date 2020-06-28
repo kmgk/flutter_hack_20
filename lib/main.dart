@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<FirebaseUser>(
       create: (_) => FirebaseAuth.instance.onAuthStateChanged,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Flutter hack20',
         theme: ThemeData(
           primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
