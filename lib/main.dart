@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       create: (_) => FirebaseAuth.instance.onAuthStateChanged,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter hack20',
+        title: 'Ecomy',
         theme: ThemeData(
           primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
