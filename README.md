@@ -1,16 +1,13 @@
-# flutter_hack20
+# Ecomy
 
-flutter hack20 app 
+This app was created by Team Sashimi at the Flutter Hackathon 2020.
 
-## Getting Started
+introduction video: https://www.youtube.com/watch?v=ZePwm99YHn4
 
-This project is a starting point for a Flutter application.
+web app: https://hack20-ce5e4.web.app/#/
 
-A few resources to get you started if this is your first Flutter project:
+## Note
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+This project use firebase_auth and cloud_firestore. So you need to set up firebase.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+If you have any questions, please feel free to contact me. https://twitter.com/hiragi_kmgk
