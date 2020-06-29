@@ -44,6 +44,22 @@ class FirestoreService {
     }
   }
 
+  /// Get all users in EcoPoint order.
+  Stream<List<User>> getAllUserOrderByEcoPoint() {
+    try {
+      return _firestore
+          .collection(usersPath)
+          .orderBy('ecoPoint', descending: true)
+          .snapshots()
+          .map((QuerySnapshot qs) => qs.documents
+              .map((DocumentSnapshot ds) => User.fromMap(ds.data))
+              .toList());
+    } catch (e) {
+      print('Error in FirestoreService.getAllUserOrderByEcoPoint: $e');
+      rethrow;
+    }
+  }
+
   /// Increment the ecoPoint fields in User
   Future<void> incrementUserEcoPoint(User user) async {
     try {

@@ -13,7 +13,7 @@ Widget ecoPostCard(User user, EcoPost ecoPost) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _userListTile(user),
+          userListTile(user),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(ecoPost.body),
@@ -51,7 +51,7 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _userListTile(user),
+          userListTile(user),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(karmaPost.body),
@@ -83,7 +83,7 @@ Widget karmaPostCard(User user, KarmaPost karmaPost) {
   );
 }
 
-Widget _userListTile(User user) {
+Widget userListTile(User user) {
   final int karmaPoint =
       user.karmaPoint - user.ecoPoint < 0 ? 0 : user.karmaPoint - user.ecoPoint;
   return ListTile(
