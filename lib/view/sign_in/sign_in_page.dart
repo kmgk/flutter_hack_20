@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hack20/common_widget/drawer.dart';
 import 'package:flutter_hack20/sevice/firebase_auth_service.dart';
 
 class SignInPage extends StatefulWidget {
@@ -30,6 +31,12 @@ class _SignInPageState extends State<SignInPage> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.lightGreen[100],
+        iconTheme: const IconThemeData(color: Colors.green),
+      ),
+      drawer: drawer(context),
       backgroundColor: Colors.lightGreen[100],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Drawer drawer(BuildContext context) {
   return Drawer(
@@ -16,6 +17,20 @@ Drawer drawer(BuildContext context) {
               Navigator.pushNamed(context, '/about');
             },
           ),
+          ListTile(
+            title: const Text('Github'),
+            trailing: const Icon(Icons.launch),
+            onTap: () {
+              launch('https://github.com/kmgk/flutter_hack_20');
+            },
+          ),
+          ListTile(
+            title: const Text('Promotional Video (YouTube)'),
+            trailing: const Icon(Icons.launch),
+            onTap: () {
+              launch('https://www.youtube.com/watch?v=ZePwm99YHn4');
+            },
+          )
         ],
       ),
     ),
